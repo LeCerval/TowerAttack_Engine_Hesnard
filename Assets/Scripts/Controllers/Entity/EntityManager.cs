@@ -5,6 +5,8 @@ using UnityEngine;
 public class EntityManager : MonoBehaviour
 {
     public GameObject prefabToInstantiate;
+
+    public GameObject prefabEnemy;
     
     public GameObject globalTarget;
 
@@ -33,16 +35,34 @@ public class EntityManager : MonoBehaviour
             // 
             if (Physics.Raycast(ray, out RaycastHit hit, mult, LayerMask.GetMask("Default")))
             {
-                GameObject instantiated = Instantiate(prefabToInstantiate, hit.point, Quaternion.identity, transform);
+                // On recupère un élement depuis le poolmanager
+                GameObject instantiated = PoolManager.Instance.GetElement(prefabToInstantiate);
+                instantiated.transform.position = hit.point;
+                instantiated.SetActive(true);
+
                 Entity entity = instantiated.GetComponent<Entity>();
                 if (entity)
                 {
-                    entity.InitEntity();
                     if (entity is EntityMoveable moveable)
                     {
                         moveable.SetGlobalTarget(globalTarget);
                     }
+                    entity.RestartEntity();
                 }
+
+            }
+        }
+
+        // Recuperation 
+        if (Input.GetMouseButtonDown(1))
+        {
+            // 
+            if (Physics.Raycast(ray, out RaycastHit hit, mult, LayerMask.GetMask("Default")))
+            {
+                // On recupère un élement depuis le poolmanager
+                GameObject instantiated = PoolManager.Instance.GetElement(prefabEnemy);
+                instantiated.transform.position = hit.point;
+                instantiated.SetActive(true);
             }
         }
     }

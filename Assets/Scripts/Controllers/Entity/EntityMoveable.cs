@@ -20,10 +20,21 @@ public class EntityMoveable : Entity
     
     private NavMeshAgent m_NavMeshAgent;
 
-    public override void Awake()
+    // Initialisation - Construction de l'entité
+    public override void InitEntity()
     {
-        base.Awake();
+        base.InitEntity();        
+        Debug.Log("Modif Tealrocks");
+        Debug.Log("Coucou Modif Pedro");
+        // Initialisation - Construction
         m_NavMeshAgent = GetComponent<NavMeshAgent>();
+    }
+
+    public override void RestartEntity()
+    {
+        base.RestartEntity();
+
+        // Set/Restart properties
         m_NavMeshAgent.speed = moveSpeed;
         SetDestination();
     }

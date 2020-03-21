@@ -210,8 +210,8 @@ MonoBehaviour:
   rangeDetect: 2
   timeWaitNextAttack: 1
   moveSpeed: 1
+  globalTarget: {fileID: 0}
   timeWaitBeforeMove: 1
-  gloablTarget: {fileID: 0}
 --- !u!54 &2672909135726546349
 Rigidbody:
   m_ObjectHideFlags: 0
